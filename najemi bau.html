@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>najemi laela</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: radial-gradient(circle at bottom, #0b1d3a, #020111 60%, #000);
+        overflow: hidden;
+        font-family: 'Segoe UI', sans-serif;
+        color: #fff;
+    }
+
+    /* Bintang */
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite ease-in-out;
+    }
+
+    .star.big {
+        width: 3px;
+        height: 3px;
+        box-shadow: 0 0 8px white;
+    }
+
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 1; }
+    }
+
+    /* Shooting star */
+    .shooting-star {
+        position: absolute;
+        width: 150px;
+        height: 2px;
+        background: linear-gradient(90deg, white, transparent);
+        animation: shoot 1.8s linear forwards;
+    }
+
+    @keyframes shoot {
+        from {
+            transform: translate(0,0);
+            opacity: 1;
+        }
+        to {
+            transform: translate(700px, 400px);
+            opacity: 0;
+        }
+    }
+
+    /* Box pesan */
+    .message-box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0,0,0,0.6);
+        padding: 30px;
+        border-radius: 18px;
+        max-width: 540px;
+        text-align: center;
+        line-height: 1.7;
+        box-shadow: 0 0 30px rgba(255,255,255,0.3);
+        backdrop-filter: blur(3px);
+    }
+
+    .title {
+        font-size: 22px;
+        color: #ffd966;
+        margin-bottom: 15px;
+    }
+
+    .text {
+        font-size: 16px;
+        min-height: 130px;
+    }
+
+    .cursor {
+        display: inline-block;
+        width: 8px;
+        background: white;
+        animation: blink 1s infinite;
+        margin-left: 3px;
+    }
+
+    @keyframes blink {
+        0%, 50%, 100% { opacity: 1; }
+        25%, 75% { opacity: 0; }
+    }
+
+    /* Info musik */
+    .music-note {
+        position: fixed;
+        bottom: 15px;
+        right: 20px;
+        font-size: 13px;
+        opacity: 0.7;
+    }
+</style>
+</head>
+<body>
+
+<!-- Musik romantis -->
+<audio autoplay loop>
+    <source src="romantis.mp3" type="audio/mpeg">
+</audio>
+
+<div class="message-box">
+    <div class="title">✨ dear bintang malam ✨</div>
+    <div class="text" id="text"></div><span class="cursor"></span>
+</div>
+
+<div class="music-note">🎵</div>
+
+<script>
+    // Pesan typing
+    const message = "najmiiii maap yah jangan marah marah lagi, nanti ceoet pendek sama bau, okeh maap kalau becanda guweh berlebihan, guweh janji semua ss an tuh ga akan ada yang tahu selain kita serius sumoah okehhh jangan marah lagi yah, jangan lupa minum susu";
+
+    let i = 0;
+    const speed = 40;
+    const textEl = document.getElementById("text");
+
+    function typing() {
+        if (i < message.length) {
+            textEl.innerHTML += message.charAt(i);
+            i++;
+            setTimeout(typing, speed);
+        }
+    }
+    typing();
+
+    // Generate bintang
+    for (let s = 0; s < 200; s++) {
+        const star = document.createElement("div");
+        star.className = Math.random() > 0.8 ? "star big" : "star";
+        star.style.top = Math.random() * window.innerHeight + "px";
+        star.style.left = Math.random() * window.innerWidth + "px";
+        star.style.animationDelay = Math.random() * 3 + "s";
+        document.body.appendChild(star);
+    }
+
+    // Shooting star random
+    setInterval(() => {
+        const shoot = document.createElement("div");
+        shoot.className = "shooting-star";
+        shoot.style.top = Math.random() * window.innerHeight / 2 + "px";
+        shoot.style.left = Math.random() * window.innerWidth / 3 + "px";
+        document.body.appendChild(shoot);
+
+        setTimeout(() => shoot.remove(), 2000);
+    }, 4500);
+</script>
+
+</body>
+</html>
